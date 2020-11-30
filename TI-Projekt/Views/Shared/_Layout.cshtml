@@ -1,0 +1,47 @@
+﻿<html>
+<head>
+    <title>Rejestrator wędrówek pieszych</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")">
+    <link href="~/Content/lightbox/css/lightbox.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="container body-content sticky-top">
+    <nav>
+        <div class="container text-center py-4 bg-dark text-white">
+            <a class="navbar-brand" href="@Url.Action("index", "Home")"><img style="height: 30px" src="@Url.Content("~/Content/images/logo.png")" /></a>
+            <big>Rejestrator wędrówek pieszych</big>
+        </div>
+    </nav>
+</div>
+@*<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><img style="height: 30px" src="@Url.Content("~/Content/images/logo.png")"/></a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="navbar-brand" href="#">Rejestrator wędrówek pieszych</a>
+    </div>
+</nav>*@
+
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+            <small>Copyright &copy; Your Website</small>
+        </div>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="~/Content/lightbox/js/lightbox.js"></script>
+
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="text-center">
+    <br />
+    <h2>Formularz dodawania nowej wędrówki</h2>
+    <br />
+</div>
+<div class="container py-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                @if (Model.Count == 0)
+                {
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-light rounded-0 align-content-center" data-toggle="modal" data-target="#UploadVideo">Dodaj film</button>
+                        <br/>
+                    </div>
+                }
+                @*<button style="margin-left: 27px; margin-bottom: 10px;" type="button" class="btn btn-light rounded-0" data-toggle="modal" data-target="#UploadVideo">Dodaj film</button>*@
+                <div class="modal fade" id="UploadVideo">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Załaduj plik wideo</h4>
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                            </div>
+                            <div class="modal-body">
+                                @using (Html.BeginForm("AddVideo", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="form-group">
+                                        <label>Wybierz plik:</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" id="fileupload" name="fileupload" class="custom-file-input" />
+                                                <label class="custom-file-label"></label>
+                                                <input type="hidden" id="Id" name="Id" value="@Convert.ToInt32(Request.QueryString["Id"])" />
+                                            </div>
+                                            <div class="input-group-append">
+                                                <input type="submit" id="btnUpload" class="btn btn-secondary" value="Upload" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    @foreach (var item in Model)
+                    {
+                        <div class="mx-auto">
+                            <div class="title">@item.VideoName</div>
+                            <br/>
+                            <div class="video-frame">
+                                <video style="max-width: 100%" controls>
+                                    <source src="@Url.Content(@item.VideoSrc)" type="video/mp4" />
+                                </video>
+                            </div>
+                            <div class="card-title">
+                                @using (Html.BeginForm("RemoveVideo", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="modal-body">
+                                        <input type="hidden" name="videoId" value="@item.VideoId" />
+                                        <input type="hidden" name="Id" value="@Convert.ToInt32(Request.QueryString["Id"])" />
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                
+                </div>
+                <div class="text-center">
+                    <button>
+                        @Html.ActionLink(
+                            "Wstecz",                                                  // linkText
+                            "AddExtInfo",                                    // actionName
+                            "Form",                                                   // controllerName
+                            new {                                                     // routeValues
+                                Id = @Convert.ToInt32(Request.QueryString["Id"])
+                                //VideoId = @Convert.ToInt32(Request.QueryString["VideoId"])
+                            },
+                            null                                                      // htmlAttributes
+                            )
+                    </button>
+                    <button>
+                        @Html.ActionLink(
+                            "Dalej",                                                  // linkText
+                            "AddPhoto",                                    // actionName
+                            "Form",                                                   // controllerName
+                            new
+                                 {                                                     // routeValues
+                                    Id = @Convert.ToInt32(Request.QueryString["Id"])
+                                 },
+                            null                                                      // htmlAttributes
+                            )
+                    </button>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    document.querySelector('.custom-file-input').addEventListener('change',function(e){
+        var fileName = document.getElementById("fileupload").files[0].name;
+        var nextSibling = e.target.nextElementSibling
+        nextSibling.innerText = fileName
+    })
+</script>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script >
+                

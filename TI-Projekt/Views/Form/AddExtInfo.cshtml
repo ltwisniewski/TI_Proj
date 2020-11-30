@@ -1,0 +1,98 @@
+﻿@model TI_Projekt.ViewModel.AddTripViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-center">Formularz dodawania nowej wędrówki</h2>
+<br />
+<div class="container py-4">
+    <div class="card">
+        <div class="card-body">
+            @using (Html.BeginForm(
+                "AddExtInfo",
+                "Form", 
+                new {                                                     
+                    Id = @Convert.ToInt32(Request.QueryString["Id"])
+                },
+                FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
+            {
+                <div>
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputTitle" class="col-sm-3 col-form-label">Tytuł</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Title" placeholder="Wędrówka z fraszką" value="@Html.DisplayFor(model => model.Title)">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputStartPlace" class="col-sm-3 col-form-label">Miejsce początkowe</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="StartPlace" placeholder="Dawny dom Jana Sztaudyngera przy ul.1 Maja 55" value="@Html.DisplayFor(model => model.StartPlace)">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputDestinationPlace" class="col-sm-3 col-form-label">Miejsce docelowe</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="DestinationPlace" placeholder="Okolice chaty Walońskiej przy ul. Kołątaja 12" value="@Html.DisplayFor(model => model.DestinationPlace)">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputDistance" class="col-sm-3 col-form-label">Przebyty dystans w km</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Distance" placeholder="12" value="@Html.DisplayFor(model => model.Distance)">
+                            </div>
+                        </div>
+
+                        @if (Model != null)
+                        {
+                            <div class="form-group row">
+                                <label for="StartDate" class="col-sm-3 col-form-label">Data rozpoczęcia</label>
+                                <div class="col-sm-5">
+                                    <input type="date" class="form-control" name="StartDate" id="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="EndDate" class="col-sm-3 col-form-label">Data zakończenia</label>
+                                <div class="col-sm-5">
+                                    <input type="date" class="form-control" name="EndDate" id="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group row">
+                                <label for="StartDate" class="col-sm-3 col-form-label">Data rozpoczęcia</label>
+                                <div class="col-sm-5">
+                                    <input type="date" class="form-control" name="StartDate" id="StartDate" value="2020-03-01">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="EndDate" class="col-sm-3 col-form-label">Data zakończenia</label>
+                                <div class="col-sm-5">
+                                    <input type="date" class="form-control" name="EndDate" id="EndDate" value="2020-06-03">
+                                </div>
+                            </div>
+                        }
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Dalej</button>
+                        </div>
+                    </form>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('StartDate').valueAsDate = @Html.DisplayFor(model => model.StartDate);
+    document.getElementById('EndDate').valueAsDate = @Html.DisplayFor(model => model.EndDate);
+</script>
+
+

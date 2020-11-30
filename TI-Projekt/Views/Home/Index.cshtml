@@ -1,0 +1,86 @@
+﻿@model IEnumerable<TI_Projekt.ViewModel.DisplayShortTripViewModel>
+
+@{
+    ViewBag.Title = "Strona główna";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="text-center">
+        <img class="img-fluid img-thumbnail" src="~/Content/images/cover.jpg" runat="server" />
+        <br /><br />
+        <button type="button" onclick="location.href = '@Url.Action("AddInfo","Form")'" class="btn btn-light">Dodaj nową wędrówkę</button>
+    </div>
+    <br />
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div>
+                            <table class="table table">
+                                <thead>
+                                    <tr>
+                                    <tr>
+                                        <th scope="col">
+                                            <p>Tytuł</p>
+                                        </th>
+                                        <th scope="col">
+                                            <p>Data rozpoczęcia</p>
+                                        </th>
+                                        <th scope="col">
+                                            <p>Miejsce startu</p>
+                                        </th>
+                                        <th scope="col">
+                                            <p>Szczegóły</p>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (!item.IsDeleted)
+                                        {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        <td>
+                                            @item.StartDate.ToString("yyyy-MM-dd")
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StartPlace)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink(linkText: "Szczegóły", actionName: "Details", controllerName: "Details", routeValues: new { id = item.TripId }, htmlAttributes: null)
+                                        </td>
+                                        <td>
+                                            
+                                            @using (Html.BeginForm(
+                                                "Delete",
+                                                "Home",
+                                                new { id = item.TripId },
+                                                FormMethod.Post,
+                                                new { enctype = "multipart/form-data" }))
+                                            {
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="Id" value="@item.TripId" />
+                                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                        }
+                                    }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
