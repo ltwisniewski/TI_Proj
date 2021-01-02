@@ -131,7 +131,6 @@
     <Compile Include="Controllers\DetailsController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TripModelsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -161,15 +160,6 @@
     <Content Include="Content\lightbox\js\lightbox-plus-jquery.min.js" />
     <Content Include="Content\lightbox\js\lightbox.js" />
     <Content Include="Content\lightbox\js\lightbox.min.js" />
-    <Content Include="Content\smart_wizzard\css\smart_wizard.css" />
-    <Content Include="Content\smart_wizzard\css\smart_wizard_all.css" />
-    <Content Include="Content\smart_wizzard\css\smart_wizard_all.min.css" />
-    <Content Include="Content\smart_wizzard\css\smart_wizard_arrows.css" />
-    <Content Include="Content\smart_wizzard\css\smart_wizard_dark.css" />
-    <Content Include="Content\smart_wizzard\css\smart_wizard_dots.css" />
-    <Content Include="Content\smart_wizzard\css\smart_wizard_progress.css" />
-    <Content Include="Content\smart_wizzard\js\jquery.smartWizard.js" />
-    <Content Include="Content\smart_wizzard\js\jquery.smartWizard.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -288,16 +278,6 @@
     <Content Include="Content\bootstrap\bootstrap-grid.scss" />
     <Content Include="Content\lightbox\js\lightbox-plus-jquery.min.map" />
     <Content Include="Content\lightbox\js\lightbox.min.map" />
-    <Content Include="Content\smart_wizzard\scss\core\_base.scss" />
-    <Content Include="Content\smart_wizzard\scss\smart_wizard.scss" />
-    <Content Include="Content\smart_wizzard\scss\smart_wizard_all.scss" />
-    <Content Include="Content\smart_wizzard\scss\smart_wizard_arrows.scss" />
-    <Content Include="Content\smart_wizzard\scss\smart_wizard_dots.scss" />
-    <Content Include="Content\smart_wizzard\scss\smart_wizard_progress.scss" />
-    <Content Include="Content\smart_wizzard\scss\themes\_arrows.scss" />
-    <Content Include="Content\smart_wizzard\scss\themes\_default.scss" />
-    <Content Include="Content\smart_wizzard\scss\themes\_dots.scss" />
-    <Content Include="Content\smart_wizzard\scss\themes\_progress.scss" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -393,7 +373,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Form\UploadVideo.cshtml" />
     <Content Include="Views\Details\Details.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -405,11 +384,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\TripModels\Create.cshtml" />
-    <Content Include="Views\TripModels\Delete.cshtml" />
-    <Content Include="Views\TripModels\Details.cshtml" />
-    <Content Include="Views\TripModels\Edit.cshtml" />
-    <Content Include="Views\TripModels\Index.cshtml" />
     <Content Include="Views\Form\AddInfo.cshtml" />
     <Content Include="Views\Form\AddPhoto.cshtml" />
     <Content Include="Views\Form\AddVideo.cshtml" />

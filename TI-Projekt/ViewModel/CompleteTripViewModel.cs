@@ -18,10 +18,6 @@ namespace TI_Projekt.ViewModel
         public int Distance { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        //public List<String> VideoSrc { get; set; }
-
-        //public List<string> PhotoSrc { get; set; }
-
         public List<PhotoModel> PhotoData { get; set; }
         public List<VideoModel> VideoData { get; set; }
     }

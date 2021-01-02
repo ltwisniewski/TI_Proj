@@ -14,14 +14,18 @@
                 "AddInfo",
                 "Form",
                 FormMethod.Post,
-                new { enctype = "multipart/form-data" }))
+                new { enctype = "multipart/form-data", id="mainForm"}))
             {
                 <div>
+                    <div class="text-center">
+                        @Html.ValidationSummary(true, "Wystąpił błąd!", new { @class = "text-danger" })
+                    </div>
                     <form>
                         <div class="form-group row">
                             <label for="inputTitle" class="col-sm-3 col-form-label">Tytuł</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="Title" placeholder="Wędrówka z fraszką" value="@Html.DisplayFor(model => model.Title)">
+                                @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
@@ -29,6 +33,7 @@
                             <label for="inputStartPlace" class="col-sm-3 col-form-label">Miejsce początkowe</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="StartPlace" placeholder="Dawny dom Jana Sztaudyngera przy ul.1 Maja 55" value="@Html.DisplayFor(model => model.StartPlace)">
+                                @Html.ValidationMessageFor(model => model.StartPlace, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
@@ -36,6 +41,7 @@
                             <label for="inputDestinationPlace" class="col-sm-3 col-form-label">Miejsce docelowe</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="DestinationPlace" placeholder="Okolice chaty Walońskiej przy ul. Kołątaja 12" value="@Html.DisplayFor(model => model.DestinationPlace)">
+                                @Html.ValidationMessageFor(model => model.DestinationPlace, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
@@ -43,10 +49,11 @@
                             <label for="inputDistance" class="col-sm-3 col-form-label">Przebyty dystans w km</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="Distance" placeholder="12" value="@Html.DisplayFor(model => model.Distance)">
+                                @Html.ValidationMessageFor(model => model.Distance, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
-                        @if (Model != null)
+                        @if (DateTime.Compare(Model.StartDate, new DateTime(0001, 1, 1)) != 0)
                         {
                             <div class="form-group row">
                                 <label for="StartDate" class="col-sm-3 col-form-label">Data rozpoczęcia</label>
@@ -77,13 +84,14 @@
                                 </div>
                             </div>
                         }
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success">Dalej</button>
-                        </div>
                     </form>
                 </div>
             }
-
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-6 offset-6">
+            <input type="submit" value="Dalej" form="mainForm" class="btn btn-primary mt-3 w-25">
         </div>
     </div>
 </div>

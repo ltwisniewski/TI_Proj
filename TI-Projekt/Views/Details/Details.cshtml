@@ -4,189 +4,112 @@
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div>
-    <h4>Szczegóły wędrówki</h4>
+<div class="mb-5">
+    <h4 class="text-center mt-5 mb-5">Szczegóły wędrówki</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Tytuł</h2>
-            <hr class="mt-2 mb-5">
-
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            <div class="container">
-
-                <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Data rozpoczęcia</h2>
-                <hr class="mt-2 mb-5">
-            </div>
-        </dt>
-
-        <dd>
-            <div class="container">
-                @Html.DisplayFor(model => model.StartDate)
-            </div>
-        </dd>
-
-        <dt>
-            <div class="container">
-
-                <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Data zakończenia</h2>
-                <hr class="mt-2 mb-5">
-            </div>
-        </dt>
-
-        <dd>
-            <div class="container">
-                @Html.DisplayFor(model => model.EndDate)
-            </div>
-        </dd>
-
-        <dt>
-            <div class="container">
-
-                <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Miejsce startowe</h2>
-                <hr class="mt-2 mb-5">
-            </div>
-        </dt>
-
-        <dd>
-            <div class="container">
-                @Html.DisplayFor(model => model.StartPlace)
-            </div>
-        </dd>
-
-        <dt>
-            <div class="container">
-
-                <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Miejsce docelowe</h2>
-                <hr class="mt-2 mb-5">
-            </div>
-        </dt>
-
-        <dd>
-            <div class="container">
-                @Html.DisplayFor(model => model.DestinationPlace)
-            </div>
-        </dd>
-
-        <dt>
-            <div class="container">
-
-                <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Przebyty dystans</h2>
-                <hr class="mt-2 mb-5">
-            </div>
-        </dt>
-
-        <dd>
-            <div class="container">
-                @Html.DisplayFor(model => model.Distance)
-            </div>
-        </dd>
-
-        <dt>
-            <div class="container">
-                    
-                <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Data dodania</h2>
-            <hr class="mt-2 mb-5">
-            
-        </dt>
-
-        <dd>
-            <div class="container">
-                @Html.DisplayFor(model => model.CreatedOn)
-            </div>
-        </dd>
-        <dt>
-            <div class="container">
-                    
-                <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Galeria</h2>
-                <hr class="mt-2 mb-5">
-            </div>
-        </dt>
-
-        <dd>
-            @if (Model.PhotoData.Count == 0)
-            {
-                <span>Brak zdjęć</span>
-            }
-            else
-            {
-                <div class="container">
-
-                    @foreach (var row in Model.PhotoData
-                        .Select((item, index) => new {item, index})
-                        .GroupBy(_ => _.index / 3, _ => _.item)
-                        )
-                    {
-                        <div class="row">
-                            @foreach (var item in row)
-                            {
-                                <div class="col">
-                                    <a href="@Url.Content(item.PhotoSrc)" data-lightbox="ag" data-title="@Url.Content(item.PhotoName)"><img class="img-fluid img-thumbnail" src="@Url.Content(item.PhotoSrc)"/></a>
-                                </div>
-                            }
-                            <!-- empty columns -->
-                            @for (var i = 0; i < row.Count() % 3; i++)
-                            {
-                                <div class="col">
-                                    &nbsp;
-                                </div>
-                            }
-                        </div>
-                    }
-
-                </div>
-            }
-        </dd>
-        <dt>
-            <div class="container">
-                    
-            <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0">Video</h2>
-            <hr class="mt-2 mb-5">
-        </dt>
-
-        <dd>
-            @if (Model.VideoData.Count == 0)
-            {
-                <span>Brak video</span>
-            }
-            else
-            {
-        <div class="col text-center">
-            @foreach (var item in Model.VideoData)
-            {
-                <div class="mx-auto">
-                    <div class="title">@item.VideoName</div>
-                    <br />
-                    <div class="video-frame">
-                        <video style="max-width: 100%" controls>
-                            <source src="@Url.Content(@item.VideoSrc)" type="video/mp4" />
-                        </video>
-                    </div>
-                </div>
-            }
-        </div>
-            }
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Powrót do listy", "Index", "Home")
-    @Html.ActionLink(
-        "Edytuj",                                                  // linkText
-        "AddExtInfo",                                    // actionName
-        "Form",                                                   // controllerName
-        new {                                                     // routeValues
-            Id = @Convert.ToInt32(Request.QueryString["Id"])
-        },
-        null                                                      // htmlAttributes
-        )
-</p>
+<div class="container">
+
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <h3 class="font-weight-light">Tytuł</h3>
+        </div>
+        <div class="col-md-9 font-weight-bold font-italic mt-1 text-info">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <h3 class="font-weight-light">Data rozpoczęcia</h3>
+        </div>
+        <div class="col-md-3 font-weight-bold font-italic mt-1 text-info">
+            @Convert.ToDateTime(Model.StartDate).ToString("dd/MM/yyyy")
+        </div>
+        <div class="col-md-3">
+            <h3 class="font-weight-light">Data zakończenia</h3>
+        </div>
+        <div class="col-md-3 font-weight-bold font-italic mt-1 text-info">
+            @Convert.ToDateTime(Model.EndDate).ToString("dd/MM/yyyy")
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <h3 class="font-weight-light">Miejsce startowe</h3>
+        </div>
+        <div class="col-md-3 font-weight-bold font-italic mt-1 text-info">
+            @Html.DisplayFor(model => model.StartPlace)
+        </div>
+        <div class="col-md-3">
+            <h3 class="font-weight-light">Miejsce docelowe</h3>
+        </div>
+        <div class="col-md-3 font-weight-bold font-italic mt-1 text-info">
+            @Html.DisplayFor(model => model.DestinationPlace)
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <h3 class="font-weight-light">Przebyty dystans</h3>
+        </div>
+        <div class="col-md-3 font-weight-bold font-italic mt-1 text-info">
+            @Html.DisplayFor(model => model.Distance) km
+        </div>
+        <div class="col-md-3">
+            <h3 class="font-weight-light">Data dodania</h3>
+        </div>
+        <div class="col-md-3 font-weight-bold font-italic mt-1 text-info">
+            @Convert.ToDateTime(Model.CreatedOn).ToString("dd/MM/yyyy")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center mt-4">
+            <hr />
+            <h3 class="font-weight-light mt-4 mb-4">Galeria</h3>
+        </div>
+        @foreach (var item in Model.PhotoData)
+        {
+        <div class="col-md-4">
+            <a href="@Url.Content(item.PhotoSrc)" data-lightbox="ag" data-title="@Url.Content(item.PhotoName)"><img style="height: 220px; width: 330px; object-fit: cover; object-position: center;" class="img-fluid img-thumbnail m-1" src="@Url.Content(item.PhotoSrc)" /></a>
+        </div>  
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center mt-4">
+            <hr />
+            <h3 class="font-weight-light mt-4 mb-4">Video</h3>
+        </div>
+        @foreach (var item in Model.VideoData)
+        {
+            <div class="col-md-12 mx-auto">
+                <div class="video-frame text-center">
+                    <video style="max-width: 100%" controls>
+                        <source src="@Url.Content(@item.VideoSrc)" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="display-4 text-center mt-2 mb-2">@item.VideoName</div>
+            </div>
+        }
+    </div>
+    
+    <div class="row text-center">
+        <div class="col-md-12">
+            <hr />
+        </div>
+        <div class="col-md-6">
+            @Html.ActionLink( "Powrót do listy", "Index", "Home", new { }, new {@class = "btn btn-success w-25 mt-3 mb-5"} )
+        </div>
+        <div class="col-md-6 ">
+            @Html.ActionLink( "Edytuj", // linkText
+                "AddExtInfo", // actionName
+                "Form", // controllerName
+                new { // routeValues
+                    Id = @Convert.ToInt32(Request.QueryString["Id"]) }, new {@class = "btn btn-info w-25 mt-3 mb-5" } )
+        </div>
+    </div>
+</div>
+
 <script src="~/Content/lightbox/js/lightbox-plus-jquery.js"></script>

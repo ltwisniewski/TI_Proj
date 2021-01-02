@@ -14,24 +14,22 @@ namespace TI_Projekt.Controllers
 {
     public class HomeController : Controller
     {
-        private TripDbContext db = new TripDbContext(); //dbcontect class
+        private TripDbContext db = new TripDbContext(); 
 
         public ActionResult Index()
         {
 
-            List<DisplayShortTripViewModel> DSTVM = new List<DisplayShortTripViewModel>(); // to hold list of Customer and order details
+            List<DisplayShortTripViewModel> DSTVM = new List<DisplayShortTripViewModel>(); 
 
             var tripList = (from Trips in db.Trips
 
-                //join Ord in orderdb.Orders on Cust.CustomerID equals Ord.CustomerID
-
-            select new { Trips.TripId, Trips.Title, Trips.StartDate, Trips.StartPlace, Trips.IsDeleted}).ToList();
+                select new { Trips.TripId, Trips.Title, Trips.StartDate, Trips.StartPlace, Trips.IsDeleted}).ToList();
 
             foreach (var item in tripList)
 
             {
 
-                DisplayShortTripViewModel objcvm = new DisplayShortTripViewModel(); // ViewModel
+                DisplayShortTripViewModel objcvm = new DisplayShortTripViewModel();
 
                 objcvm.TripId = item.TripId;
 
@@ -43,8 +41,6 @@ namespace TI_Projekt.Controllers
                 DSTVM.Add(objcvm);
 
             }
-
-            //Using foreach loop fill data from custmerlist to List<CustomerVM>.
 
             return View(DSTVM);
         }

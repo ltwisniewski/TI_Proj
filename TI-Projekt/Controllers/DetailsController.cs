@@ -27,12 +27,10 @@ namespace TI_Projekt.Controllers
             }
 
 
-            CompleteTripViewModel CTVM = new CompleteTripViewModel(); // to hold list of Customer and order details
+            CompleteTripViewModel CTVM = new CompleteTripViewModel();
 
             var trip = (from Trips in db.Trips
 
-                //join Photos in db.Photos on Trips.TripId equals Photos.TripId
-                //join Videos in db.Videos on Trips.TripId equals Videos.TripId
 
                 where Trips.TripId==id
                 select new
@@ -44,9 +42,7 @@ namespace TI_Projekt.Controllers
                     Trips.EndDate,
                     Trips.DestinationPlace,
                     Trips.Distance,
-                    Trips.CreatedOn, 
-                    //Photos.PhotoSrc,
-                    //Videos.VideoSrc
+                    Trips.CreatedOn,
                 }
                 ).ToList();
 
@@ -60,30 +56,15 @@ namespace TI_Projekt.Controllers
                 CTVM.DestinationPlace = item.DestinationPlace;
                 CTVM.Distance = item.Distance;
                 CTVM.CreatedOn = item.CreatedOn;
-                //CTVMList.PhotoSrc = item.PhotoSrc;
-                //CTVMList.VideoSrc = item.VideoSrc;
             }
-
-            //List<string> photoSrcList = new List<string>();
-            //CTVM.PhotoSrc = new List<string>();
-            //CTVM.VideoSrc = new List<string>();
 
             CTVM.PhotoData = new List<PhotoModel>();
 
-            //var photoSrcList = (from Photo in db.Photos
-            //    where Photo.TripId == id
-            //    select new { Photo.PhotoSrc }).ToList();
 
             var photoDataList = (from Photo in db.Photos
             where Photo.TripId == id
                                 select new { Photo.PhotoName, Photo.PhotoSrc, Photo.PhotoId, Photo.TripId}).ToList();
 
-            //foreach (var item in photoSrcList)
-            //{
-            //    CTVM.PhotoSrc.Add(item.PhotoSrc);
-            //}
-            
-            //PhotoViewModel PVM =new PhotoViewModel();
 
             foreach (var item in photoDataList)
             {
@@ -117,7 +98,7 @@ namespace TI_Projekt.Controllers
                 CTVM.VideoData.Add(PVM);
             }
 
-            return View(CTVM); //List of CustomerVM (ViewModel)
+            return View(CTVM); 
         }
     }
 }

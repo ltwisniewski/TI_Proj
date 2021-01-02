@@ -9,27 +9,19 @@ namespace TI_Projekt.ViewModel
 {
     public class AddTripViewModel
     {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Pole nie może być puste")]
+        [MaxLength(100, ErrorMessage = "Słowo powinno zawierać maksymalnie 100 znaków"), MinLength(3, ErrorMessage = "Słowo powinno zawierać co najmniej 3 znaki")]
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Pole nie może być puste")]
+        [MaxLength(100, ErrorMessage = "Słowo powinno zawierać maksymalnie 100 znaków"), MinLength(3, ErrorMessage = "Słowo powinno zawierać co najmniej 3 znaki")]
         public String StartPlace { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Pole nie może być puste")]
+        [MaxLength(100, ErrorMessage = "Słowo powinno zawierać maksymalnie 100 znaków"), MinLength(3, ErrorMessage = "Słowo powinno zawierać co najmniej 3 znaki")]
         public String DestinationPlace { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Pole nie może być puste")]
+        [Range(1, 1000, ErrorMessage = "Wskaż liczbę z zakresu 1-1000")]
         public double Distance { get; set; }
-
-        //[DataType(DataType.Upload)]
-        //[Display(Name = "Upload Video")]
-        //[Required(ErrorMessage = "Please choose file to upload.")]
-        //public string VideoPath { get; set; }
-
-        //[NotMapped]
-        //public HttpPostedFileBase[] Photo { get; set; }
-
-
-        //[Display(Name = "Upload Photo")]
-        //[Required(ErrorMessage = "Please choose file to upload.")]
-        //public string PhotoPath { get; set; }
-
-        //[NotMapped]
-        //public HttpPostedFileBase PhotoFile { get; set; }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,7 +21,8 @@ namespace TI_Projekt.Controllers
         [HttpGet]
         public ActionResult AddInfo()
         {
-            return View();
+            AddTripViewModel viewModel = new AddTripViewModel();
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -61,109 +65,116 @@ namespace TI_Projekt.Controllers
             double Distance;
             DateTime CreatedOn = DateTime.Now;
 
-
-            if (atvm != null)
+            if (ModelState.IsValid)
             {
-                if (atvm.Title == null)
+                if (atvm != null)
                 {
-                    Title = "default";
-                }
-                else
-                {
-                    Title = atvm.Title;
-                }
-
-                if (atvm.StartDate.Equals("01.01.0001 00:00:00"))
-                {
-                    StartDate = DateTime.Now;
-                }
-                else
-                {
-                    StartDate = atvm.StartDate;
-                }
-
-                if (atvm.EndDate.Equals("01.01.0001 00:00:00"))
-                {
-                    EndDate = DateTime.Now;
-                }
-                else
-                {
-                    EndDate = atvm.EndDate;
-                }
-
-                if (atvm.StartPlace == null)
-                {
-                    StartPlace = "default";
-                }
-                else
-                {
-                    StartPlace = atvm.StartPlace;
-                }
-
-                if (atvm.DestinationPlace == null)
-                {
-                    DestinationPlace = "default";
-                }
-                else
-                {
-                    DestinationPlace = atvm.DestinationPlace;
-                }
-
-                if (atvm.Distance == 0)
-                {
-                    Distance = 1;
-                }
-                else
-                {
-                    Distance = atvm.Distance;
-                }
-
-
-                string CS = ConfigurationManager.ConnectionStrings["TI"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(CS))
-                {
-                    SqlCommand cmd = new SqlCommand(
-                        "insert into Trips (Title,StartDate,EndDate,StartPlace,DestinationPlace,Distance,IsDeleted,CreatedOn) " +
-                        "values (@Title,@StartDate,@EndDate,@StartPlace,@DestinationPlace,@Distance,1,@CreatedOn)",
-                        con) {CommandType = CommandType.Text};
-
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@Title", Title);
-                    cmd.Parameters.AddWithValue("@StartDate", StartDate);
-                    cmd.Parameters.AddWithValue("@EndDate", EndDate);
-                    cmd.Parameters.AddWithValue("@StartPlace", StartPlace);
-                    cmd.Parameters.AddWithValue("@DestinationPlace", DestinationPlace);
-                    cmd.Parameters.AddWithValue("@Distance", Distance);
-                    cmd.Parameters.AddWithValue("@CreatedOn", CreatedOn);
-
-                    cmd.ExecuteNonQuery();
-                }
-
-                using (SqlConnection con = new SqlConnection(CS))
-                {
-                    SqlCommand cmd =
-                        new SqlCommand("select TripId from Trips where Title = @Title and CreatedOn = @CreatedOn", con)
-                        {
-                            CommandType = CommandType.Text
-                        };
-
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@Title", Title);
-                    cmd.Parameters.AddWithValue("@CreatedOn", CreatedOn);
-
-                    SqlDataReader dr;
-                    dr = cmd.ExecuteReader();
-                    while (dr.Read())
+                    if (atvm.Title == null)
                     {
-                        int.TryParse(dr["TripId"].ToString(), out Id);
+                        Title = "default";
                     }
+                    else
+                    {
+                        Title = atvm.Title;
+                    }
+
+                    if (atvm.StartDate.Equals("01.01.0001 00:00:00"))
+                    {
+                        StartDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        StartDate = atvm.StartDate;
+                    }
+
+                    if (atvm.EndDate.Equals("01.01.0001 00:00:00"))
+                    {
+                        EndDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        EndDate = atvm.EndDate;
+                    }
+
+                    if (atvm.StartPlace == null)
+                    {
+                        StartPlace = "default";
+                    }
+                    else
+                    {
+                        StartPlace = atvm.StartPlace;
+                    }
+
+                    if (atvm.DestinationPlace == null)
+                    {
+                        DestinationPlace = "default";
+                    }
+                    else
+                    {
+                        DestinationPlace = atvm.DestinationPlace;
+                    }
+
+                    if (atvm.Distance == 0)
+                    {
+                        Distance = 1;
+                    }
+                    else
+                    {
+                        Distance = atvm.Distance;
+                    }
+
+
+                    string CS = ConfigurationManager.ConnectionStrings["TI"].ConnectionString;
+
+                    using (SqlConnection con = new SqlConnection(CS))
+                    {
+                        SqlCommand cmd = new SqlCommand(
+                            "insert into Trips (Title,StartDate,EndDate,StartPlace,DestinationPlace,Distance,IsDeleted,CreatedOn) " +
+                            "values (@Title,@StartDate,@EndDate,@StartPlace,@DestinationPlace,@Distance,1,@CreatedOn)",
+                            con)
+                        { CommandType = CommandType.Text };
+
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@Title", Title);
+                        cmd.Parameters.AddWithValue("@StartDate", StartDate);
+                        cmd.Parameters.AddWithValue("@EndDate", EndDate);
+                        cmd.Parameters.AddWithValue("@StartPlace", StartPlace);
+                        cmd.Parameters.AddWithValue("@DestinationPlace", DestinationPlace);
+                        cmd.Parameters.AddWithValue("@Distance", Distance);
+                        cmd.Parameters.AddWithValue("@CreatedOn", CreatedOn);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (SqlConnection con = new SqlConnection(CS))
+                    {
+                        SqlCommand cmd =
+                            new SqlCommand("select TripId from Trips where Title = @Title and CreatedOn = @CreatedOn", con)
+                            {
+                                CommandType = CommandType.Text
+                            };
+
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@Title", Title);
+                        cmd.Parameters.AddWithValue("@CreatedOn", CreatedOn);
+
+                        SqlDataReader dr;
+                        dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            int.TryParse(dr["TripId"].ToString(), out Id);
+                        }
+                    }
+                    return RedirectToAction("AddVideo", "Form", new { Id });
                 }
-                return RedirectToAction("AddVideo", "Form", new { Id });
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
             else
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View(atvm);
             }
         }
 
@@ -180,71 +191,73 @@ namespace TI_Projekt.Controllers
             double Distance;
             DateTime CreatedOn = DateTime.Now;
 
-
-            if (atvm != null)
+            if (ModelState.IsValid)
             {
-                if (atvm.Title == null)
+                if (atvm != null)
                 {
-                    Title = "default";
-                }
-                else
-                {
-                    Title = atvm.Title;
-                }
-                if (atvm.StartDate.Equals("01.01.0001 00:00:00"))
-                {
-                    StartDate = DateTime.Now;
-                }
-                else
-                {
-                    StartDate = atvm.StartDate;
-                }
-                if (atvm.EndDate.Equals("01.01.0001 00:00:00"))
-                {
-                    EndDate = DateTime.Now;
-                }
-                else
-                {
-                    EndDate = atvm.EndDate;
-                }
+                    if (atvm.Title == null)
+                    {
+                        Title = "default";
+                    }
+                    else
+                    {
+                        Title = atvm.Title;
+                    }
+                    if (atvm.StartDate.Equals("01.01.0001 00:00:00"))
+                    {
+                        StartDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        StartDate = atvm.StartDate;
+                    }
+                    if (atvm.EndDate.Equals("01.01.0001 00:00:00"))
+                    {
+                        EndDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        EndDate = atvm.EndDate;
+                    }
 
-                if (atvm.StartPlace == null)
-                {
-                    StartPlace = "default";
-                }
-                else
-                {
-                    StartPlace = atvm.StartPlace;
-                }
+                    if (atvm.StartPlace == null)
+                    {
+                        StartPlace = "default";
+                    }
+                    else
+                    {
+                        StartPlace = atvm.StartPlace;
+                    }
 
-                if (atvm.DestinationPlace == null)
-                {
-                    DestinationPlace = "default";
-                }
-                else
-                {
-                    DestinationPlace = atvm.DestinationPlace;
-                }
+                    if (atvm.DestinationPlace == null)
+                    {
+                        DestinationPlace = "default";
+                    }
+                    else
+                    {
+                        DestinationPlace = atvm.DestinationPlace;
+                    }
 
-                if (atvm.Distance == 0)
-                {
-                    Distance = 1;
-                }
-                else
-                {
-                    Distance = atvm.Distance;
-                }
-                
-
-                string CS = ConfigurationManager.ConnectionStrings["TI"].ConnectionString;
+                    if (atvm.Distance == 0)
+                    {
+                        Distance = 1;
+                    }
+                    else
+                    {
+                        Distance = atvm.Distance;
+                    }
 
 
-                   
+                    string CS = ConfigurationManager.ConnectionStrings["TI"].ConnectionString;
+
+
+
                     using (SqlConnection con = new SqlConnection(CS))
                     {
                         SqlCommand cmd = new SqlCommand(
                             "update Trips set Title=@Title,StartDate=@StartDate,EndDate=@EndDate,StartPlace=@StartPlace,DestinationPlace=@DestinationPlace,Distance=@Distance" +
-                            " where TripId=@Id", con) {CommandType = CommandType.Text};
+                            " where TripId=@Id", con)
+                        { CommandType = CommandType.Text };
 
                         con.Open();
                         cmd.Parameters.AddWithValue("@Title", Title);
@@ -260,10 +273,15 @@ namespace TI_Projekt.Controllers
                     }
 
                     return RedirectToAction("AddVideo", "Form", new { Id });
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
             else
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View(atvm);
             }
         }
         

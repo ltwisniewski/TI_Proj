@@ -5,82 +5,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <div class="text-center">
-        <img class="img-fluid img-thumbnail" src="~/Content/images/cover.jpg" runat="server" />
-        <br /><br />
-        <button type="button" onclick="location.href = '@Url.Action("AddInfo","Form")'" class="btn btn-light">Dodaj nową wędrówkę</button>
-    </div>
-    <br />
-
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div>
-                            <table class="table table">
-                                <thead>
-                                    <tr>
-                                    <tr>
-                                        <th scope="col">
-                                            <p>Tytuł</p>
-                                        </th>
-                                        <th scope="col">
-                                            <p>Data rozpoczęcia</p>
-                                        </th>
-                                        <th scope="col">
-                                            <p>Miejsce startu</p>
-                                        </th>
-                                        <th scope="col">
-                                            <p>Szczegóły</p>
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        if (!item.IsDeleted)
-                                        {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Title)
-                                        </td>
-                                        <td>
-                                            @item.StartDate.ToString("yyyy-MM-dd")
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.StartPlace)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink(linkText: "Szczegóły", actionName: "Details", controllerName: "Details", routeValues: new { id = item.TripId }, htmlAttributes: null)
-                                        </td>
-                                        <td>
-                                            
-                                            @using (Html.BeginForm(
-                                                "Delete",
-                                                "Home",
-                                                new { id = item.TripId },
-                                                FormMethod.Post,
-                                                new { enctype = "multipart/form-data" }))
-                                            {
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="Id" value="@item.TripId" />
-                                                    <input type="submit" value="Delete" class="btn btn-danger" />
-                                                </div>
-                                            }
-                                        </td>
-                                    </tr>
-                                        }
-                                    }
-                            </table>
-                        </div>
-                    </div>
-                </div>
+<div class="jumbotron bg-dark mt-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <img class="img-fluid img-thumbnail mb-3" src="~/Content/images/cover.jpg" />
+            </div>
+            <div class="col-md-12">
+                <button type="button" onclick="location.href = '@Url.Action("AddInfo", "Form")'" class="btn btn-info mb-3 w-25">Dodaj nową wędrówkę</button>
             </div>
         </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped ml-5 mr-5 mt-5 table-bordered table-hover table-sm bg-light text-center">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">
+                    <p>Tytuł</p>
+                </th>
+                <th scope="col">
+                    <p>Data rozpoczęcia</p>
+                </th>
+                <th scope="col">
+                    <p>Miejsce startu</p>
+                </th>
+                <th scope="col">
+                    <p>Szczegóły</p>
+                </th>
+                <th scope="col">
+                    <p>Usuń</p>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                if (!item.IsDeleted)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @item.StartDate.ToString("yyyy-MM-dd")
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartPlace)
+                        </td>
+                        <td>
+                            <button type="button" onclick="location.href = '@Url.Action("Details", "Details", routeValues: new {id = item.TripId})'" class="btn btn-sm btn-secondary mt-2">Wyświetl</button>
+
+                        </td>
+                        <td>
+
+                            @using (Html.BeginForm(
+                                "Delete",
+                                "Home",
+                                new {id = item.TripId},
+                                FormMethod.Post,
+                                new {enctype = "multipart/form-data", @class="mt-2"}))
+                            {
+                                <div>
+                                    <input type="hidden" name="Id" value="@item.TripId"/>
+                                    <input type="submit" value="Usuń" class="btn btn-sm btn-danger"/>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
     </div>
 </div>

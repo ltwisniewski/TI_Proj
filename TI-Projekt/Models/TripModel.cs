@@ -22,11 +22,12 @@ namespace TI_Projekt.Models
         public DateTime EndDate { get; set; }
         [Required]
         [MaxLength(100), MinLength(3)]
-        public String StartPlace { get; set; }
+        public string StartPlace { get; set; }
         [Required]
         [MaxLength(100), MinLength(3)]
-        public String DestinationPlace { get; set; }
+        public string DestinationPlace { get; set; }
         [Required]
+        [Range(1, 1000)]
         public int Distance { get; set; }
 
         public bool IsDeleted { get; set; }
