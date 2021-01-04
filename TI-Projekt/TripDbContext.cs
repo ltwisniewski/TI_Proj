@@ -8,12 +8,6 @@ namespace TI_Projekt
 
     public class TripDbContext : DbContext
     {
-        // Your context has been configured to use a 'TripDbContext' connection string from your application's 
-        // configuration file (App.config or Web.config). By default, this connection string targets the 
-        // 'TI_Projekt.TripDbContext' database on your LocalDb instance. 
-        // 
-        // If you wish to target a different database and/or database provider, modify the 'TripDbContext' 
-        // connection string in the application configuration file.
         public TripDbContext()
             : base("name=TI")
         {

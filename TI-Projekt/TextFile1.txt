@@ -1,9 +1,0 @@
-﻿#Local PC
-  <connectionStrings>
-    <add name="TI" connectionString="data source=192.168.200.131;initial catalog=TI;MultipleActiveResultSets=True;App=EntityFramework;User Id=test;Password=1234;" providerName="System.Data.SqlClient" />
-  </connectionStrings>
-
-#Cloud
-  <connectionStrings>
-    <add name="TI" connectionString="data source=35.246.149.82;initial catalog=TI;MultipleActiveResultSets=True;App=EntityFramework;User Id=test;Password=1234;" providerName="System.Data.SqlClient" />
-  </connectionStrings>
